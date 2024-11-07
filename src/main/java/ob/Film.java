@@ -4,11 +4,10 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Film")
+@Table(name = "FILM")
 public class Film {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "nom")
     private String nom;
@@ -16,16 +15,16 @@ public class Film {
     @Column(name = "url")
     private String url;
 
-    @Column(name = "plot", columnDefinition = "TEXT")
+    @Column(name = "plot")
     private String plot;
 
     @Column(name = "langue")
     private String langue;
 
-    @Column(name = "anneeSortie")
-    private Integer anneeSortie;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lieuTournage_id")
+    @Column(name = "annee_sortie")
+    private String anneeSortie;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lieu_tournage_id")
     private Lieu lieuTournage;
 
     @ManyToMany
@@ -43,6 +42,8 @@ public class Film {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pays_id")
     private Pays pays;
+
+
 
     /**
      * Getter

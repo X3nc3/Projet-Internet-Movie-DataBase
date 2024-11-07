@@ -11,9 +11,8 @@ import java.util.Set;
 public class Acteur {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private String id;
 
     @Column(name = "identite")
     private String identite;
@@ -24,7 +23,7 @@ public class Acteur {
     @Column(name = "dateNaissance")
     private LocalDate dateNaissance;
 
-    @Column(name = "taille")
+    @Column(name = "height")
     private double height;
 
     @OneToMany(mappedBy = "acteur")
@@ -36,7 +35,10 @@ public class Acteur {
             joinColumns = { @JoinColumn(name = "id_acteur") },
             inverseJoinColumns = { @JoinColumn(name = "id_film") }
     )
-    private Set<Film> films = new HashSet<>();
+    private Set<Film> films;
+    {
+        films = new HashSet<>();
+    }
 
     public Acteur() {
     }
@@ -46,7 +48,7 @@ public class Acteur {
      *
      * @return id
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -55,7 +57,7 @@ public class Acteur {
      *
      * @param id id
      */
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

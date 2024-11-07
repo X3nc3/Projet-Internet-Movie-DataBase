@@ -5,18 +5,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Genre")
+@Table(name = "GENRE")
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String nom;
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "film_genre",
-            joinColumns = @JoinColumn(name = "id_genre"),
-            inverseJoinColumns = @JoinColumn(name = "id_film"))
-    private Set<Film> films = new HashSet<>();
+            joinColumns = @JoinColumn(name = "id_genre", referencedColumnName="id"),
+            inverseJoinColumns = @JoinColumn(name = "id_film", referencedColumnName="id"))
+    private Set<Film> films;
+    {
+        films = new HashSet<>();
+    }
 
     // Constructor without arguments
     public Genre() {}
@@ -24,7 +27,7 @@ public class Genre {
     /**
      * @return the id
      */
-    public Long getId() {
+    public String  getId() {
         return id;
     }
 
@@ -45,7 +48,7 @@ public class Genre {
     /**
      * @param id the id to set
      */
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

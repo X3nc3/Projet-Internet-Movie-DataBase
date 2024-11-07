@@ -3,7 +3,7 @@ package ob;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "lieu")
+@Table(name = "LIEU")
 public class Lieu {
 
 
