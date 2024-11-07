@@ -6,6 +6,7 @@ import java.util.Set;
 @Entity
 @Table(name = "FILM")
 public class Film {
+
     @Id
     private String id;
 
@@ -23,6 +24,7 @@ public class Film {
 
     @Column(name = "annee_sortie")
     private String anneeSortie;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "lieu_tournage_id")
     private Lieu lieuTournage;
@@ -43,6 +45,13 @@ public class Film {
     @JoinColumn(name = "pays_id")
     private Pays pays;
 
+    @ManyToMany(mappedBy = "acteurs")
+    private Set<Acteur> CastingPrincipales; // liste des acteurs qui on fait le casting pour le film
+
+    @(mappedBy = "acteurs")
+    private Set<Roles> Roles; // liste des acteurs qui on était pris pour le film
+
+
 
 
     /**
@@ -50,7 +59,7 @@ public class Film {
      *
      * @return id
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -59,7 +68,7 @@ public class Film {
      *
      * @param id id
      */
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -140,7 +149,7 @@ public class Film {
      *
      * @return anneeSortie
      */
-    public Integer getAnneeSortie() {
+    public String getAnneeSortie() {
         return anneeSortie;
     }
 
@@ -149,7 +158,7 @@ public class Film {
      *
      * @param anneeSortie anneeSortie
      */
-    public void setAnneeSortie(Integer anneeSortie) {
+    public void setAnneeSortie(String anneeSortie) {
         this.anneeSortie = anneeSortie;
     }
 

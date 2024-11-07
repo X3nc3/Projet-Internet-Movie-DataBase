@@ -2,6 +2,9 @@ package fr.diginamic.ob;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "LIEU")
 public class Lieu {
@@ -14,8 +17,23 @@ public class Lieu {
     @Column(name = "ville")
     private String ville;
 
+
+    @ManyToOne
+    @JoinColumn(name = "pays_id")
+    private Pays pays;
+
+    @OneToMany(mappedBy = "lieu", cascade = CascadeType.PERSIST)
+    private Set<Acteur> Acteurs;
+
+    {
+        Acteurs = new HashSet<>();
+    }
+
     // Constructeurs
 
+    public Lieu() {
+
+    }
 
     public Lieu(Long id, String ville) {
         this.id = id;
@@ -58,8 +76,44 @@ public class Lieu {
         this.ville = ville;
     }
 
-    public Lieu() {
+    /**
+     * Getter for getpays
+     *
+     * @return pays
+     */
 
+    public Pays getPays() {
+        return pays;
+    }
+
+    /**
+     * Setter for getpays
+     *
+     * @return pays
+     */
+
+    public void setPays(Pays pays) {
+        this.pays = pays;
+    }
+
+    /**
+     * Getter for getActeurs
+     *
+     * @return Acteurs
+     */
+
+    public Set<Acteur> getActeurs() {
+        return Acteurs;
+    }
+
+    /**
+     * Setter for getActeurs
+     *
+     * @return Acteurs
+     */
+
+    public void setActeurs(Set<Acteur> acteurs) {
+        Acteurs = acteurs;
     }
 
     // Equals and HashCode (optional, based on your needs)
@@ -78,12 +132,13 @@ public class Lieu {
         return id != null ? id.hashCode() : 0;
     }
 
-    // toString (optional, for debugging)
     @Override
     public String toString() {
-        return "Lieu{" +
-                "id=" + id +
-                ", ville='" + ville + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("Lieu{");
+        sb.append("ville='").append(ville).append('\'');
+        sb.append(", pays=").append(pays);
+        sb.append(", Acteurs=").append(Acteurs);
+        sb.append('}');
+        return sb.toString();
     }
 }

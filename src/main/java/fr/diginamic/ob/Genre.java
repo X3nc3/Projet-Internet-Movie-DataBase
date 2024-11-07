@@ -65,4 +65,14 @@ public class Genre {
     public void setFilms(Set<Film> films) {
         this.films = films;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Genre{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", films=").append(films);
+        sb.append('}');
+        return sb.toString();
+    }
 }

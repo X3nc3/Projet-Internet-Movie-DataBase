@@ -26,8 +26,12 @@ public class Acteur {
     @Column(name = "height")
     private double height;
 
-    @OneToMany(mappedBy = "acteur")
-    private Set<Role> roles = new HashSet<>();
+//    @OneToMany(mappedBy = "acteur")
+//    private Set<Roles> roles = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "Lieu_id")
+    private Lieu getLieuNaissance;
 
     @ManyToMany
     @JoinTable(
@@ -35,9 +39,23 @@ public class Acteur {
             joinColumns = { @JoinColumn(name = "id_acteur") },
             inverseJoinColumns = { @JoinColumn(name = "id_film") }
     )
-    private Set<Film> films;
+    private Set<Film> filmsCasting;
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "ROLES",
+//            joinColumns = { @JoinColumn(name = "id_acteur") },
+//            inverseJoinColumns = { @JoinColumn(name = "id_film") }
+//    )
+//    private Set<Film> filmsRoles;
+
+    @OneToOne
+    @JoinColumn(name = "id_roles")
+    private Roles roles;
+
     {
-        films = new HashSet<>();
+        filmsCasting = new HashSet<>();
+//        filmsRoles = new HashSet<>();
     }
 
     public Acteur() {
@@ -138,7 +156,7 @@ public class Acteur {
      *
      * @return roles
      */
-    public Set<Role> getRoles() {
+    public Set<Roles> getRoles() {
         return roles;
     }
 
@@ -147,7 +165,7 @@ public class Acteur {
      *
      * @param roles roles
      */
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<Roles> roles) {
         this.roles = roles;
     }
 
