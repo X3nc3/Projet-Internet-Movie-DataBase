@@ -38,3 +38,4 @@ build/
 .DS_Store
 
 /main/resources/META-INF/*
+/src/main/resources/META-INF/
