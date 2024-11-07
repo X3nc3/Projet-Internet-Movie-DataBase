@@ -1,4 +1,4 @@
-package ob;
+package fr.diginamic.ob;
 
 import jakarta.persistence.*;
 import java.util.Set;

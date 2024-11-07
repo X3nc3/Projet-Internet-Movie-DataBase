@@ -1,11 +1,11 @@
-package ob;
+package fr.diginamic.ob;
 
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Realisateurs")
+@Table(name = "REALISATEUR")
 public class Realisateur {
     @Id
     private String id;
