@@ -1,4 +1,4 @@
-package entites;
+package ob;
 
 public class Realisateur {
 }
