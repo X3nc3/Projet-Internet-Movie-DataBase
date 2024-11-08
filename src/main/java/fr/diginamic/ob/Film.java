@@ -64,6 +64,7 @@ public class Film {
         CastingPrincipales = new HashSet<>();
         Roles = new HashSet<>();
     }
+
     public Film() {
     }
 
