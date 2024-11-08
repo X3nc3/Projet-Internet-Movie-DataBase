@@ -28,44 +28,66 @@ public class Genre {
     // Constructor without arguments
     public Genre() {}
 
+    public Genre(String nom) {
+        this.nom = nom;
+    }
+
     /**
-     * @return the id
+     * Getter for getid
+     *
+     * @return id
      */
-    public String  getId() {
+
+    public String getId() {
         return id;
     }
 
     /**
-     * @return the nom
+     * Setter for getid
+     *
+     * @return id
      */
-    public String getNom() {
-        return nom;
-    }
 
-    /**
-     * @return the films
-     */
-    public Set<Film> getFilms() {
-        return films;
-    }
-
-    /**
-     * @param id the id to set
-     */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * @param nom the nom to set
+     * Getter for getnom
+     *
+     * @return nom
      */
+
+    public String getNom() {
+        return nom;
+    }
+
+    /**
+     * Setter for getnom
+     *
+     * @return nom
+     */
+
     public void setNom(String nom) {
         this.nom = nom;
     }
 
     /**
-     * @param films the films to set
+     * Getter for getfilms
+     *
+     * @return films
      */
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    /**
+     * Setter for getfilms
+     *
+     * @return films
+     */
+
     public void setFilms(Set<Film> films) {
         this.films = films;
     }
@@ -73,9 +95,8 @@ public class Genre {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Genre{");
-        sb.append("id='").append(id).append('\'');
-        sb.append(", nom='").append(nom).append('\'');
-        sb.append(", films=").append(films);
+        sb.append("nom='").append(nom).append('\'');
+        sb.append(", id='").append(id).append('\'');
         sb.append('}');
         return sb.toString();
     }

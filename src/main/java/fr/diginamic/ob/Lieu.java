@@ -40,43 +40,46 @@ public class Lieu {
 
     }
 
-    public Lieu(Long id, String ville) {
-        this.id = id;
+    public Lieu(String ville) {
         this.ville = ville;
     }
 
     /**
-     * Getter
+     * Getter for getid
      *
      * @return id
      */
+
     public Long getId() {
         return id;
     }
 
     /**
-     * Setter
+     * Setter for getid
      *
-     * @param id id
+     * @return id
      */
+
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * Getter
+     * Getter for getville
      *
      * @return ville
      */
+
     public String getVille() {
         return ville;
     }
 
     /**
-     * Setter
+     * Setter for getville
      *
-     * @param ville ville
+     * @return ville
      */
+
     public void setVille(String ville) {
         this.ville = ville;
     }
@@ -121,6 +124,26 @@ public class Lieu {
         Acteurs = acteurs;
     }
 
+    /**
+     * Getter for getfilms
+     *
+     * @return films
+     */
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    /**
+     * Setter for getfilms
+     *
+     * @return films
+     */
+
+    public void setFilms(Set<Film> films) {
+        this.films = films;
+    }
+
     // Equals and HashCode (optional, based on your needs)
     @Override
     public boolean equals(Object o) {
@@ -140,9 +163,9 @@ public class Lieu {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Lieu{");
-        sb.append("ville='").append(ville).append('\'');
+        sb.append("id=").append(id);
+        sb.append(", ville='").append(ville).append('\'');
         sb.append(", pays=").append(pays);
-        sb.append(", Acteurs=").append(Acteurs);
         sb.append('}');
         return sb.toString();
     }

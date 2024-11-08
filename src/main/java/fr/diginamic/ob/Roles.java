@@ -33,6 +33,26 @@ public class Roles {
     }
 
     /**
+     * Getter for getid
+     *
+     * @return id
+     */
+
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * Setter for getid
+     *
+     * @return id
+     */
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
      * Getter for getcharacterName
      *
      * @return characterName
@@ -73,9 +93,9 @@ public class Roles {
     }
 
     /**
-     * Getter for getacteur_id
+     * Getter for getacteurId
      *
-     * @return acteur_id
+     * @return acteurId
      */
 
     public Acteur getActeurId() {
@@ -83,9 +103,9 @@ public class Roles {
     }
 
     /**
-     * Setter for getacteur_id
+     * Setter for getacteurId
      *
-     * @return acteur_id
+     * @return acteurId
      */
 
     public void setActeurId(Acteur acteurId) {
@@ -93,32 +113,31 @@ public class Roles {
     }
 
     /**
-     * Getter for getfilm_id
+     * Getter for getfilmId
      *
-     * @return film_id
+     * @return filmId
      */
 
-    public Film getFilm_id() {
+    public Film getFilmId() {
         return filmId;
     }
 
     /**
-     * Setter for getfilm_id
+     * Setter for getfilmId
      *
-     * @return film_id
+     * @return filmId
      */
 
-    public void setFilm_id(Film film_id) {
-        this.filmId = film_id;
+    public void setFilmId(Film filmId) {
+        this.filmId = filmId;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Roles{");
-        sb.append("characterName='").append(characterName).append('\'');
-        sb.append(", role='").append(role).append('\'');
-        sb.append(", acteur_id=").append(acteurId);
-        sb.append(", film_id=").append(filmId);
+        sb.append("role='").append(role).append('\'');
+        sb.append(", characterName='").append(characterName).append('\'');
+        sb.append(", id=").append(id);
         sb.append('}');
         return sb.toString();
     }

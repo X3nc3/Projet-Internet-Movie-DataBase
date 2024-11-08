@@ -40,55 +40,61 @@ public class Pays {
     }
 
     /**
-     * Getter
+     * Getter for getid
      *
      * @return id
      */
+
     public Integer getId() {
         return id;
     }
 
     /**
-     * Setter
+     * Setter for getid
      *
-     * @param id id
+     * @return id
      */
+
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * Getter
+     * Getter for getnom
      *
      * @return nom
      */
+
     public String getNom() {
         return nom;
     }
 
     /**
-     * Setter
+     * Setter for getnom
      *
-     * @param nom nom
+     * @return nom
      */
+
     public void setNom(String nom) {
         this.nom = nom;
     }
 
     /**
-     * Getter
+     * Getter for geturl
      *
      * @return url
      */
+
     public String getUrl() {
         return url;
     }
 
     /**
-     * Setter
+     * Setter for geturl
      *
-     * @param url url
+     * @return url
      */
+
     public void setUrl(String url) {
         this.url = url;
     }
@@ -113,6 +119,26 @@ public class Pays {
         this.lieux = lieux;
     }
 
+    /**
+     * Getter for getfilms
+     *
+     * @return films
+     */
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    /**
+     * Setter for getfilms
+     *
+     * @return films
+     */
+
+    public void setFilms(Set<Film> films) {
+        this.films = films;
+    }
+
     /** Permet d'ajouter un lieu à un pays
      *
      * @param lieu
@@ -127,10 +153,9 @@ public class Pays {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Pays{");
-        sb.append("nom='").append(nom).append('\'');
+        sb.append("id=").append(id);
+        sb.append(", nom='").append(nom).append('\'');
         sb.append(", url='").append(url).append('\'');
-        sb.append(", lieux=").append(lieux);
-        sb.append(", films=").append(films);
         sb.append('}');
         return sb.toString();
     }

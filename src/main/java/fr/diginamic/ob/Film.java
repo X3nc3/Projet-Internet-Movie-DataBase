@@ -28,20 +28,20 @@ public class Film {
     private String anneeSortie;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "film_tournage",
+    @JoinTable(name = "FILM_TOURNAGE",
             joinColumns = @JoinColumn(name = "lieu_tournage_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id")
     )
     private Set<Lieu> lieuTournage;
 
     @ManyToMany
-    @JoinTable(name = "film_genre",
+    @JoinTable(name = "FILM_GENRE",
             joinColumns = @JoinColumn(name = "id_film"),
             inverseJoinColumns = @JoinColumn(name = "id_genre"))
     private Set<Genre> genres;
 
     @ManyToMany
-    @JoinTable(name = "film_realisateur",
+    @JoinTable(name = "FILM_REALISATEURS",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "realisateur_id"))
     private Set<Realisateur> realisateurs;
@@ -77,163 +77,201 @@ public class Film {
     }
 
     /**
-     * Getter
+     * Getter for getid
      *
      * @return id
      */
+
     public String getId() {
         return id;
     }
 
     /**
-     * Setter
+     * Setter for getid
      *
-     * @param id id
+     * @return id
      */
+
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * Getter
+     * Getter for getnom
      *
      * @return nom
      */
+
     public String getNom() {
         return nom;
     }
 
     /**
-     * Setter
+     * Setter for getnom
      *
-     * @param nom nom
+     * @return nom
      */
+
     public void setNom(String nom) {
         this.nom = nom;
     }
 
     /**
-     * Getter
+     * Getter for geturl
      *
      * @return url
      */
+
     public String getUrl() {
         return url;
     }
 
     /**
-     * Setter
+     * Setter for geturl
      *
-     * @param url url
+     * @return url
      */
+
     public void setUrl(String url) {
         this.url = url;
     }
 
     /**
-     * Getter
+     * Getter for getplot
      *
      * @return plot
      */
+
     public String getPlot() {
         return plot;
     }
 
     /**
-     * Setter
+     * Setter for getplot
      *
-     * @param plot plot
+     * @return plot
      */
+
     public void setPlot(String plot) {
         this.plot = plot;
     }
 
     /**
-     * Getter
+     * Getter for getlangue
      *
      * @return langue
      */
+
     public String getLangue() {
         return langue;
     }
 
     /**
-     * Setter
+     * Setter for getlangue
      *
-     * @param langue langue
+     * @return langue
      */
+
     public void setLangue(String langue) {
         this.langue = langue;
     }
 
     /**
-     * Getter
+     * Getter for getanneeSortie
      *
      * @return anneeSortie
      */
+
     public String getAnneeSortie() {
         return anneeSortie;
     }
 
     /**
-     * Setter
+     * Setter for getanneeSortie
      *
-     * @param anneeSortie anneeSortie
+     * @return anneeSortie
      */
+
     public void setAnneeSortie(String anneeSortie) {
         this.anneeSortie = anneeSortie;
     }
 
     /**
-     * Getter
+     * Getter for getlieuTournage
+     *
+     * @return lieuTournage
+     */
+
+    public Set<Lieu> getLieuTournage() {
+        return lieuTournage;
+    }
+
+    /**
+     * Setter for getlieuTournage
+     *
+     * @return lieuTournage
+     */
+
+    public void setLieuTournage(Set<Lieu> lieuTournage) {
+        this.lieuTournage = lieuTournage;
+    }
+
+    /**
+     * Getter for getgenres
      *
      * @return genres
      */
+
     public Set<Genre> getGenres() {
         return genres;
     }
 
     /**
-     * Setter
+     * Setter for getgenres
      *
-     * @param genres genres
+     * @return genres
      */
+
     public void setGenres(Set<Genre> genres) {
         this.genres = genres;
     }
 
     /**
-     * Getter
+     * Getter for getrealisateurs
      *
      * @return realisateurs
      */
+
     public Set<Realisateur> getRealisateurs() {
         return realisateurs;
     }
 
     /**
-     * Setter
+     * Setter for getrealisateurs
      *
-     * @param realisateurs realisateurs
+     * @return realisateurs
      */
+
     public void setRealisateurs(Set<Realisateur> realisateurs) {
         this.realisateurs = realisateurs;
     }
 
     /**
-     * Getter
+     * Getter for getpays
      *
      * @return pays
      */
+
     public Pays getPays() {
         return pays;
     }
 
     /**
-     * Setter
+     * Setter for getpays
      *
-     * @param pays pays
+     * @return pays
      */
+
     public void setPays(Pays pays) {
         this.pays = pays;
     }
@@ -287,11 +325,7 @@ public class Film {
         sb.append(", plot='").append(plot).append('\'');
         sb.append(", langue='").append(langue).append('\'');
         sb.append(", anneeSortie='").append(anneeSortie).append('\'');
-        sb.append(", genres=").append(genres);
-        sb.append(", realisateurs=").append(realisateurs);
         sb.append(", pays=").append(pays);
-        sb.append(", CastingPrincipales=").append(CastingPrincipales);
-        sb.append(", Roles=").append(Roles);
         sb.append('}');
         return sb.toString();
     }

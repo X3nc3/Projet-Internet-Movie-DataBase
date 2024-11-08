@@ -58,99 +58,109 @@ public class Acteur {
     }
 
     /**
-     * Getter
+     * Getter for getid
      *
      * @return id
      */
+
     public String getId() {
         return id;
     }
 
     /**
-     * Setter
+     * Setter for getid
      *
-     * @param id id
+     * @return id
      */
+
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * Getter
+     * Getter for getidentite
      *
      * @return identite
      */
+
     public String getIdentite() {
         return identite;
     }
 
     /**
-     * Setter
+     * Setter for getidentite
      *
-     * @param identite identite
+     * @return identite
      */
+
     public void setIdentite(String identite) {
         this.identite = identite;
     }
 
     /**
-     * Getter
+     * Getter for geturl
      *
      * @return url
      */
+
     public String getUrl() {
         return url;
     }
 
     /**
-     * Setter
+     * Setter for geturl
      *
-     * @param url url
+     * @return url
      */
+
     public void setUrl(String url) {
         this.url = url;
     }
 
     /**
-     * Getter
+     * Getter for getdateNaissance
      *
      * @return dateNaissance
      */
+
     public LocalDate getDateNaissance() {
         return dateNaissance;
     }
 
     /**
-     * Setter
+     * Setter for getdateNaissance
      *
-     * @param dateNaissance dateNaissance
+     * @return dateNaissance
      */
+
     public void setDateNaissance(LocalDate dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 
     /**
-     * Getter
+     * Getter for gettaille
      *
-     * @return height
+     * @return taille
      */
+
     public double getTaille() {
         return taille;
     }
 
     /**
-     * Setter
+     * Setter for gettaille
      *
-     * @param taille height
+     * @return taille
      */
+
     public void setTaille(double taille) {
         this.taille = taille;
     }
 
     /**
-     * Getter for getgetLieuNaissance
+     * Getter for getlieuNaissance
      *
-     * @return getLieuNaissance
+     * @return lieuNaissance
      */
 
     public Lieu getLieuNaissance() {
@@ -158,9 +168,9 @@ public class Acteur {
     }
 
     /**
-     * Setter for getgetLieuNaissance
+     * Setter for getlieuNaissance
      *
-     * @return getLieuNaissance
+     * @return lieuNaissance
      */
 
     public void setLieuNaissance(Lieu lieuNaissance) {
@@ -223,14 +233,11 @@ public class Acteur {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Acteur{");
-        sb.append("id='").append(id).append('\'');
-        sb.append(", identite='").append(identite).append('\'');
-        sb.append(", url='").append(url).append('\'');
+        sb.append("taille=").append(taille);
         sb.append(", dateNaissance=").append(dateNaissance);
-        sb.append(", height=").append(taille);
-        sb.append(", getLieuNaissance=").append(lieuNaissance);
-        sb.append(", filmsCasting=").append(filmsCasting);
-        sb.append(", roles=").append(roles);
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", identite='").append(identite).append('\'');
+        sb.append(", id='").append(id).append('\'');
         sb.append('}');
         return sb.toString();
     }

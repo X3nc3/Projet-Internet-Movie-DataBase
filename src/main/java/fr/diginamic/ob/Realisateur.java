@@ -28,77 +28,98 @@ public class Realisateur {
 
     public Realisateur() {}
 
-    // Getters and setters
+    public Realisateur(String url, String identite) {
+        this.url = url;
+        this.identite = identite;
+    }
 
     /**
-     * Getter
+     * Getter for getid
      *
      * @return id
      */
+
     public String getId() {
         return id;
     }
 
     /**
-     * Setter
+     * Setter for getid
      *
-     * @param id id
+     * @return id
      */
+
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * Getter
+     * Getter for getidentite
      *
      * @return identite
      */
+
     public String getIdentite() {
         return identite;
     }
 
     /**
-     * Setter
+     * Setter for getidentite
      *
-     * @param identite identite
+     * @return identite
      */
+
     public void setIdentite(String identite) {
         this.identite = identite;
     }
 
     /**
-     * Getter
+     * Getter for geturl
      *
      * @return url
      */
+
     public String getUrl() {
         return url;
     }
 
     /**
-     * Setter
+     * Setter for geturl
      *
-     * @param url url
+     * @return url
      */
+
     public void setUrl(String url) {
         this.url = url;
     }
 
     /**
-     * Getter
+     * Getter for getfilms
      *
      * @return films
      */
+
     public Set<Film> getFilms() {
         return films;
     }
 
     /**
-     * Setter
+     * Setter for getfilms
      *
-     * @param films films
+     * @return films
      */
+
     public void setFilms(Set<Film> films) {
         this.films = films;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Realisateur{");
+        sb.append("url='").append(url).append('\'');
+        sb.append(", identite='").append(identite).append('\'');
+        sb.append(", id='").append(id).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
