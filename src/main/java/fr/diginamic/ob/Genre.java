@@ -10,6 +10,8 @@ public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
+    @Column(name = "nom")
     private String nom;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -17,6 +19,8 @@ public class Genre {
             joinColumns = @JoinColumn(name = "id_genre", referencedColumnName="id"),
             inverseJoinColumns = @JoinColumn(name = "id_film", referencedColumnName="id"))
     private Set<Film> films;
+
+
     {
         films = new HashSet<>();
     }

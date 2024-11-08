@@ -1,6 +1,8 @@
 package fr.diginamic.ob;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,8 +28,11 @@ public class Film {
     private String anneeSortie;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "lieu_tournage_id")
-    private Lieu lieuTournage;
+    @JoinTable(name = "film_tournage",
+            joinColumns = @JoinColumn(name = "lieu_tournage_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id")
+    )
+    private Set<Lieu> lieuTournage;
 
     @ManyToMany
     @JoinTable(name = "film_genre",
@@ -38,21 +43,37 @@ public class Film {
     @ManyToMany
     @JoinTable(name = "film_realisateur",
             joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "realisateurId"))
+            inverseJoinColumns = @JoinColumn(name = "realisateur_id"))
     private Set<Realisateur> realisateurs;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pays_id")
     private Pays pays;
 
-    @ManyToMany(mappedBy = "acteurs")
+    @ManyToMany(mappedBy = "filmsCasting")
     private Set<Acteur> CastingPrincipales; // liste des acteurs qui on fait le casting pour le film
 
-    @(mappedBy = "acteurs")
+
+    @OneToMany(mappedBy = "filmId", cascade = CascadeType.PERSIST)
     private Set<Roles> Roles; // liste des acteurs qui on était pris pour le film
 
+    {
+        lieuTournage = new HashSet<>();
+        realisateurs = new HashSet<>();
+        genres = new HashSet<>();
+        CastingPrincipales = new HashSet<>();
+        Roles = new HashSet<>();
+    }
+    public Film() {
+    }
 
-
+    public Film(String nom, String url, String plot, String langue, String anneeSortie) {
+        this.nom = nom;
+        this.url = url;
+        this.plot = plot;
+        this.langue = langue;
+        this.anneeSortie = anneeSortie;
+    }
 
     /**
      * Getter
@@ -165,24 +186,6 @@ public class Film {
     /**
      * Getter
      *
-     * @return lieuTournage
-     */
-    public Lieu getLieuTournage() {
-        return lieuTournage;
-    }
-
-    /**
-     * Setter
-     *
-     * @param lieuTournage lieuTournage
-     */
-    public void setLieuTournage(Lieu lieuTournage) {
-        this.lieuTournage = lieuTournage;
-    }
-
-    /**
-     * Getter
-     *
      * @return genres
      */
     public Set<Genre> getGenres() {
@@ -232,5 +235,63 @@ public class Film {
      */
     public void setPays(Pays pays) {
         this.pays = pays;
+    }
+
+    /**
+     * Getter for getCastingPrincipales
+     *
+     * @return CastingPrincipales
+     */
+
+    public Set<Acteur> getCastingPrincipales() {
+        return CastingPrincipales;
+    }
+
+    /**
+     * Setter for getCastingPrincipales
+     *
+     * @return CastingPrincipales
+     */
+
+    public void setCastingPrincipales(Set<Acteur> castingPrincipales) {
+        CastingPrincipales = castingPrincipales;
+    }
+
+    /**
+     * Getter for getRoles
+     *
+     * @return Roles
+     */
+
+    public Set<fr.diginamic.ob.Roles> getRoles() {
+        return Roles;
+    }
+
+    /**
+     * Setter for getRoles
+     *
+     * @return Roles
+     */
+
+    public void setRoles(Set<fr.diginamic.ob.Roles> roles) {
+        Roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Film{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", nom='").append(nom).append('\'');
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", plot='").append(plot).append('\'');
+        sb.append(", langue='").append(langue).append('\'');
+        sb.append(", anneeSortie='").append(anneeSortie).append('\'');
+        sb.append(", genres=").append(genres);
+        sb.append(", realisateurs=").append(realisateurs);
+        sb.append(", pays=").append(pays);
+        sb.append(", CastingPrincipales=").append(CastingPrincipales);
+        sb.append(", Roles=").append(Roles);
+        sb.append('}');
+        return sb.toString();
     }
 }

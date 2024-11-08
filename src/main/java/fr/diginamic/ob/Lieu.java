@@ -22,11 +22,16 @@ public class Lieu {
     @JoinColumn(name = "pays_id")
     private Pays pays;
 
-    @OneToMany(mappedBy = "lieu", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "lieuNaissance", cascade = CascadeType.PERSIST)
     private Set<Acteur> Acteurs;
+
+    @ManyToMany(mappedBy = "lieuTournage")
+    private Set<Film> films;
+
 
     {
         Acteurs = new HashSet<>();
+        films = new HashSet<>();
     }
 
     // Constructeurs

@@ -7,17 +7,24 @@ import java.util.Set;
 @Entity
 @Table(name = "REALISATEUR")
 public class Realisateur {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
+    @Column(name = "identite")
     private String identite;
+
+    @Column(name = "url")
     private String url;
 
+    @ManyToMany(mappedBy = "realisateurs")
+    private Set<Film> films;
 
-    @ManyToMany
-    @JoinTable(name = "FilmRealisateur",
-            joinColumns = @JoinColumn(name = "REALISATEUR_ID"),
-            inverseJoinColumns = @JoinColumn(name = "FILM_ID"))
-    private Set<Film> films = new HashSet<>();
+
+    {
+        films = new HashSet<>();
+    }
 
     public Realisateur() {}
 

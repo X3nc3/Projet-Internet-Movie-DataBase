@@ -20,18 +20,15 @@ public class Acteur {
     @Column(name = "url")
     private String url;
 
-    @Column(name = "dateNaissance")
+    @Column(name = "date_naissance")
     private LocalDate dateNaissance;
 
-    @Column(name = "height")
-    private double height;
-
-//    @OneToMany(mappedBy = "acteur")
-//    private Set<Roles> roles = new HashSet<>();
+    @Column(name = "taille")
+    private double taille;
 
     @ManyToOne
-    @JoinColumn(name = "Lieu_id")
-    private Lieu getLieuNaissance;
+    @JoinColumn(name = "lieu_id")
+    private Lieu lieuNaissance;
 
     @ManyToMany
     @JoinTable(
@@ -41,24 +38,23 @@ public class Acteur {
     )
     private Set<Film> filmsCasting;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "ROLES",
-//            joinColumns = { @JoinColumn(name = "id_acteur") },
-//            inverseJoinColumns = { @JoinColumn(name = "id_film") }
-//    )
-//    private Set<Film> filmsRoles;
+    @OneToMany(mappedBy = "acteurId", cascade = CascadeType.PERSIST)
+    private Set<Roles> roles;
 
-    @OneToOne
-    @JoinColumn(name = "id_roles")
-    private Roles roles;
 
     {
         filmsCasting = new HashSet<>();
-//        filmsRoles = new HashSet<>();
+        roles = new HashSet<>();
     }
 
     public Acteur() {
+    }
+
+    public Acteur(String identite, String url, LocalDate dateNaissance, double taille) {
+        this.identite = identite;
+        this.url = url;
+        this.dateNaissance = dateNaissance;
+        this.taille = taille;
     }
 
     /**
@@ -138,53 +134,77 @@ public class Acteur {
      *
      * @return height
      */
-    public double getHeight() {
-        return height;
+    public double getTaille() {
+        return taille;
     }
 
     /**
      * Setter
      *
-     * @param height height
+     * @param taille height
      */
-    public void setHeight(double height) {
-        this.height = height;
+    public void setTaille(double taille) {
+        this.taille = taille;
     }
 
     /**
-     * Getter
+     * Getter for getgetLieuNaissance
+     *
+     * @return getLieuNaissance
+     */
+
+    public Lieu getLieuNaissance() {
+        return lieuNaissance;
+    }
+
+    /**
+     * Setter for getgetLieuNaissance
+     *
+     * @return getLieuNaissance
+     */
+
+    public void setLieuNaissance(Lieu lieuNaissance) {
+        this.lieuNaissance = lieuNaissance;
+    }
+
+    /**
+     * Getter for getfilmsCasting
+     *
+     * @return filmsCasting
+     */
+
+    public Set<Film> getFilmsCasting() {
+        return filmsCasting;
+    }
+
+    /**
+     * Setter for getfilmsCasting
+     *
+     * @return filmsCasting
+     */
+
+    public void setFilmsCasting(Set<Film> filmsCasting) {
+        this.filmsCasting = filmsCasting;
+    }
+
+    /**
+     * Getter for getroles
      *
      * @return roles
      */
+
     public Set<Roles> getRoles() {
         return roles;
     }
 
     /**
-     * Setter
+     * Setter for getroles
      *
-     * @param roles roles
+     * @return roles
      */
+
     public void setRoles(Set<Roles> roles) {
         this.roles = roles;
-    }
-
-    /**
-     * Getter
-     *
-     * @return films
-     */
-    public Set<Film> getFilms() {
-        return films;
-    }
-
-    /**
-     * Setter
-     *
-     * @param films films
-     */
-    public void setFilms(Set<Film> films) {
-        this.films = films;
     }
 
     @Override
@@ -202,14 +222,16 @@ public class Acteur {
 
     @Override
     public String toString() {
-        return "Acteur{" +
-                "id=" + id +
-                ", identite='" + identite + '\'' +
-                ", url='" + url + '\'' +
-                ", dateNaissance=" + dateNaissance +
-                ", height=" + height +
-                ", roles=" + roles +
-                ", films=" + films +
-                '}';
+        final StringBuilder sb = new StringBuilder("Acteur{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", identite='").append(identite).append('\'');
+        sb.append(", url='").append(url).append('\'');
+        sb.append(", dateNaissance=").append(dateNaissance);
+        sb.append(", height=").append(taille);
+        sb.append(", getLieuNaissance=").append(lieuNaissance);
+        sb.append(", filmsCasting=").append(filmsCasting);
+        sb.append(", roles=").append(roles);
+        sb.append('}');
+        return sb.toString();
     }
 }
