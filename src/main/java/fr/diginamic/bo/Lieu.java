@@ -17,6 +17,8 @@ public class Lieu {
     @Column(name = "ville")
     private String ville;
 
+    @Column(name = "etat_dept")
+    private String etatDept;
 
     @ManyToOne
     @JoinColumn(name = "pays_id")
@@ -40,8 +42,9 @@ public class Lieu {
 
     }
 
-    public Lieu(String ville) {
+    public Lieu(String ville,String etatDept) {
         this.ville = ville;
+        this.etatDept = etatDept;
     }
 
     /**
@@ -144,6 +147,26 @@ public class Lieu {
         this.films = films;
     }
 
+    /**
+     * Getter for getetatDept
+     *
+     * @return etatDept
+     */
+
+    public String getEtatDept() {
+        return etatDept;
+    }
+
+    /**
+     * Setter for getetatDept
+     *
+     * @return etatDept
+     */
+
+    public void setEtatDept(String etatDept) {
+        this.etatDept = etatDept;
+    }
+
     // Equals and HashCode (optional, based on your needs)
     @Override
     public boolean equals(Object o) {
@@ -165,6 +188,7 @@ public class Lieu {
         final StringBuilder sb = new StringBuilder("Lieu{");
         sb.append("id=").append(id);
         sb.append(", ville='").append(ville).append('\'');
+        sb.append(", etatDept='").append(etatDept).append('\'');
         sb.append(", pays=").append(pays);
         sb.append('}');
         return sb.toString();
