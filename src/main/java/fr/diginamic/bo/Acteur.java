@@ -21,7 +21,7 @@ public class Acteur {
     private String url;
 
     @Column(name = "date_naissance")
-    private LocalDate dateNaissance;
+    private String dateNaissance;
 
     @Column(name = "taille")
     private double taille;
@@ -50,7 +50,7 @@ public class Acteur {
     public Acteur() {
     }
 
-    public Acteur(String identite, String url, LocalDate dateNaissance, double taille) {
+    public Acteur(String identite, String url, String dateNaissance, double taille) {
         this.identite = identite;
         this.url = url;
         this.dateNaissance = dateNaissance;
@@ -126,7 +126,7 @@ public class Acteur {
      * @return dateNaissance
      */
 
-    public LocalDate getDateNaissance() {
+    public String getDateNaissance() {
         return dateNaissance;
     }
 
@@ -136,7 +136,7 @@ public class Acteur {
      * @return dateNaissance
      */
 
-    public void setDateNaissance(LocalDate dateNaissance) {
+    public void setDateNaissance(String dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
 

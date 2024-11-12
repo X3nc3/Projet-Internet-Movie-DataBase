@@ -19,8 +19,7 @@ public class TraducteurJson {
 
         ObjectMapper objectMapper = new ObjectMapper();
         File filmsJsonfile = new File("src/main/resources/films.json");
-        List<Film_dto> filmsExtreJson = objectMapper.readValue(filmsJsonfile, new TypeReference<List<Film_dto>>() {
-        }); // Récupération des données du json
+        List<Film_dto> filmsExtreJson = objectMapper.readValue(filmsJsonfile, new TypeReference<List<Film_dto>>() {}); // Récupération des données du json
 
         List<Pays> ListPaysJson = new ArrayList<>();                        // création d'une liste pour stocker tous les pays renseignée dans le json
         for (Film_dto filmDto : filmsExtreJson) {                           // boucle pour récupérer tous les paysDTO du json
@@ -54,7 +53,7 @@ public class TraducteurJson {
 
                 boolean genreExiste = false;
                 int k = 0;
-                while (k < ListGenreJson.size()) {                          // code pour viciation si présence dans la liste des genres total
+                while (k < ListGenreJson.size()) {                          // code pour vérification si présence dans la liste des genres total
                     Genre genre = ListGenreJson.get(k);
 
                     if (genre.getNom() != null && genre.getNom().equals(nomGenre)) {
@@ -106,15 +105,133 @@ public class TraducteurJson {
             }
         }
 
+        List<Realisateur> ListeRealisteurJson = new ArrayList<>();          // creation d'une liste pour stocker tous les réalisateurs renseignée dans le json
+        for(Film_dto filmDto : filmsExtreJson){                             // boucle pour récupérer tous les réalisateurs dans FilmDTO du json
 
-// Afficher les résultats pour vérification
-        System.out.println("Pays : " + Arrays.toString(ListPaysJson.toArray()));
-        System.out.println("Genres : " + Arrays.toString(ListGenreJson.toArray()));
-//        System.out.println("Acteurs : " + Arrays.toString(ListActeursJson.toArray()));
-        System.out.println("Lieux : " + Arrays.toString(ListLieuxJson.toArray()));
-//            System.out.println("Réalisateurs : " + Arrays.toString(ListRealisateursJson.toArray()));
-//        System.out.println("Rôles : " + Arrays.toString(ListRolesJson.toArray()));
-//        System.out.println("Films : " + Arrays.toString(ListFilmsJson.toArray()));
+            Realisateur_dto[] RealisateurFilm = filmDto.realisateurs();     // création d'une liste pour stocker les réalisateurs du film sélectionné
+
+            for (Realisateur_dto realisateurDto : RealisateurFilm) {        // boucle pour récupérer 1 par 1 les réalisateurs
+                Realisateur RealisateurExtreJson = new Realisateur();       // creation d'un objet réalisateur
+                RealisateurExtreJson.setUrl(realisateurDto.url());          // ajout des différents paramètres
+                RealisateurExtreJson.setIdentite(realisateurDto.identite());
+                boolean realisateurExiste = false;
+                for (Realisateur realisateur : ListeRealisteurJson) {       // vérification de la présence des réalisateurs dans la liste totaux
+                    if (realisateur.getIdentite().equals(realisateurDto.identite())) {
+                        realisateurExiste = true;
+                        break;
+                    }
+                }
+                if (!realisateurExiste) {
+                    ListeRealisteurJson.add(RealisateurExtreJson);          // ajout s'il n'est pas déjà présent dans la liste
+                }
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+        List<Acteur> ListeActeurJson = new ArrayList<>();                   // creation d'une liste pour stocker tous les acteurs renseignée dans le json
+        for (Film_dto filmDto : filmsExtreJson){                            // boucle pour récupérer tous les acteurs dans FilmDTO du json
+            Acteur_dto[] CastingFilm = filmDto.castingPrincipal();          // création d'une liste pour stoker tous les acteurs du film sélectionné par le casting
+
+            if (CastingFilm != null) {                                      // vérifie si le casting est vide
+                for (Acteur_dto acteurDto : CastingFilm) {                  // on parcourt le casting pour trouver des acteurs
+                    Acteur ActeurExtreJson = new Acteur();                  // ajout d'un nouvel acteur
+                    ActeurExtreJson.setUrl(acteurDto.url());                // ajout des différents paramètres
+                    if(acteurDto.height() == null){                         // vérifie si une taille est rentré
+                        ActeurExtreJson.setTaille(0);                       // met à 0 si ce n'est pas le cas
+                    }else{
+                        ActeurExtreJson.setTaille(Double.parseDouble(acteurDto.height()));
+                    }
+                    ActeurExtreJson.setIdentite(acteurDto.identite());
+                    ActeurExtreJson.setDateNaissance(acteurDto.naissance().dateNaissance());
+
+                    if (acteurDto.naissance().dateNaissance() != null) {    // vérifie si une date de naissance est rentré
+                        ActeurExtreJson.setDateNaissance(null);
+                    }else{
+                        ActeurExtreJson.setDateNaissance(acteurDto.naissance().dateNaissance());
+                    }
+
+                    Lieu lieuNaissanceActeur = new Lieu(acteurDto.naissance().lieuNaissance(), null);
+
+                    ActeurExtreJson.setLieuNaissance(lieuNaissanceActeur);
+
+                    boolean acteurExiste = false;
+                    for (Acteur acteur : ListeActeurJson) {                 // vérifie si l'acteur n'est pas déjà rentré dans la liste
+                        if (acteur.getIdentite().equals(acteurDto.identite())) {
+                            acteurExiste = true;
+                            break;
+                        }
+                    }
+                    if (!acteurExiste) {
+                        ListeActeurJson.add(ActeurExtreJson);               // l'ajout à la liste et l'ajout aussi a la liste des acteurs qui sont née au même endroit que lui
+                        lieuNaissanceActeur.getActeurs().add(ActeurExtreJson);
+                    }
+                }
+            }
+
+            Role_dto[] RolesFilm = filmDto.roles();                         // la même chose que pour acteur dans le casting principal, mais pour role
+            if (RolesFilm != null) {
+                for (Role_dto roleDto : RolesFilm) {
+                    Acteur ActeurExtreJson = new Acteur();
+                    ActeurExtreJson.setUrl(roleDto.acteur().url());
+
+                    if(roleDto.acteur().height() == null){
+                        ActeurExtreJson.setTaille(0);
+                    }else{
+                        ActeurExtreJson.setTaille(Double.parseDouble(roleDto.acteur().height()));
+                    }
+                    ActeurExtreJson.setIdentite(roleDto.acteur().identite());
+
+                    Lieu lieuNaissanceActeur = new Lieu();
+                    // Vérifie d'abord que naissance() n'est pas null avant de récupérer dateNaissance() et lieuNaissance()
+                    if (roleDto.acteur().naissance() != null) {
+                        ActeurExtreJson.setDateNaissance(roleDto.acteur().naissance().dateNaissance());
+                        lieuNaissanceActeur = new Lieu(roleDto.acteur().naissance().lieuNaissance(), null);
+                        ActeurExtreJson.setLieuNaissance(lieuNaissanceActeur);
+                    } else {
+                        ActeurExtreJson.setDateNaissance(null); // Définit dateNaissance à null si l'information n'est pas disponible
+                        ActeurExtreJson.setLieuNaissance(null); // Définit lieuNaissance à null si l'information n'est pas disponible
+                    }
+
+
+                    boolean acteurExiste = false;
+                    for (Acteur acteur : ListeActeurJson){
+                        if (acteur.getIdentite().equals(roleDto.acteur().identite())){
+                            acteurExiste = true;
+                            break;
+                        }
+                    }
+
+                    if(!acteurExiste){
+                        ListeActeurJson.add(ActeurExtreJson);
+                        if (roleDto.acteur().naissance() != null) {
+                            lieuNaissanceActeur.getActeurs().add(ActeurExtreJson);
+                        }
+                    }
+
+
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+//        System.out.println(Arrays.toString(ListPaysJson.toArray()));      // affichage de tous les pays
+//        System.out.println(Arrays.toString(ListGenreJson.toArray()));     // affichage de tous les genres
+
 
 //        Film[] ListFilms = null;
 //
