@@ -88,27 +88,6 @@ public class TraducteurJson {
             }
         }
 
-
-        // ** Extraction des réalisateurs **
-        List<Realisateur> ListRealisateursJson = new ArrayList<>();
-        for (Film_dto filmDto : filmsExtreJson) {
-            Realisateur_dto[] realisateursFilm = filmDto.realisateurs();
-            if (realisateursFilm != null) {
-                for (Realisateur_dto realisateurDto : realisateursFilm) {
-                    Realisateur realisateur = new Realisateur();
-                    realisateur.setIdentite(realisateurDto.identite());
-                    realisateur.setUrl(realisateurDto.url());
-
-                    boolean realisateurExiste = ListRealisateursJson.stream()
-                            .anyMatch(r -> r.getIdentite().equals(realisateur.getIdentite()));
-                    if (!realisateurExiste) {
-                        ListRealisateursJson.add(realisateur);
-                    }
-                }
-            }
-        }
-
-
         // ** Extraction des rôles **
         List<Roles> ListRolesJson = new ArrayList<>();
         for (Film_dto filmDto : filmsExtreJson) {
@@ -130,7 +109,7 @@ public class TraducteurJson {
         System.out.println("Genres : " + Arrays.toString(ListGenreJson.toArray()));
 //        System.out.println("Acteurs : " + Arrays.toString(ListActeursJson.toArray()));
         System.out.println("Lieux : " + Arrays.toString(ListLieuxJson.toArray()));
-        System.out.println("Réalisateurs : " + Arrays.toString(ListRealisateursJson.toArray()));
+//            System.out.println("Réalisateurs : " + Arrays.toString(ListRealisateursJson.toArray()));
         System.out.println("Rôles : " + Arrays.toString(ListRolesJson.toArray()));
 //        System.out.println("Films : " + Arrays.toString(ListFilmsJson.toArray()));
 
