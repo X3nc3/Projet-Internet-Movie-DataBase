@@ -21,8 +21,7 @@ public class ActeurTest {
     private Film film;
     private Roles role;
 
-    //Initialise les données de test avant chaque méthode de test.
-    @BeforeEach
+    @BeforeEach //Initialise les données de test avant chaque méthode de test.
     void initialiser() {
         // Initialisation des objets de test
         acteur = new Acteur();
@@ -31,8 +30,7 @@ public class ActeurTest {
         role = new Roles();
     }
 
-    //Test de la classe Acteur
-    @Nested
+    @Nested//Annotation pour organiser les test dans sous catégories
     @DisplayName("Tests des constructeurs")
     class ConstructeurTests {
 
@@ -68,7 +66,7 @@ public class ActeurTest {
         }
     }
 
-    //Annotation pour organiser les test dans sous catégories
+
     @Nested
     @DisplayName("Tests des getters et setters")
     class GetterSetterTests {
