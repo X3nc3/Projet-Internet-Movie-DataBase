@@ -1,7 +1,7 @@
 package fr.diginamic.bo;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -30,20 +30,14 @@ public class Acteur {
     @JoinColumn(name = "lieu_id")
     private Lieu lieuNaissance;
 
-    @ManyToMany
-    @JoinTable(
-            name = "CASTING",
-            joinColumns = { @JoinColumn(name = "id_acteur") },
-            inverseJoinColumns = { @JoinColumn(name = "id_film") }
-    )
-    private Set<Film> filmsCasting;
+    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
+    private Set<CastingPrincipale> castingPrincipaleFilms;
 
-    @OneToMany(mappedBy = "acteurId", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "acteur", cascade = CascadeType.PERSIST)
     private Set<Roles> roles;
 
 
     {
-        filmsCasting = new HashSet<>();
         roles = new HashSet<>();
     }
 
@@ -181,30 +175,31 @@ public class Acteur {
     }
 
     /**
+     * Getter for getcastingPrincipaleFilms
+     *
+     * @return castingPrincipaleFilms
+     */
+
+    public Set<CastingPrincipale> getCastingPrincipaleFilms() {
+        return castingPrincipaleFilms;
+    }
+
+    /**
+     * Setter for getcastingPrincipaleFilms
+     *
+     * @return castingPrincipaleFilms
+     */
+
+    public void setCastingPrincipaleFilms(Set<CastingPrincipale> castingPrincipaleFilms) {
+        this.castingPrincipaleFilms = castingPrincipaleFilms;
+    }
+
+    /**
      * Getter for getfilmsCasting
      *
      * @return filmsCasting
      */
 
-    public Set<Film> getFilmsCasting() {
-        return filmsCasting;
-    }
-
-    /**
-     * Setter for getfilmsCasting
-     *
-     * @return filmsCasting
-     */
-
-    public void setFilmsCasting(Set<Film> filmsCasting) {
-        this.filmsCasting = filmsCasting;
-    }
-
-    /**
-     * Getter for getroles
-     *
-     * @return roles
-     */
 
     public Set<Roles> getRoles() {
         return roles;
