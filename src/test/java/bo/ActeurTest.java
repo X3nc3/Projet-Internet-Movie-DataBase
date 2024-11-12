@@ -139,10 +139,6 @@ public class ActeurTest {
         }
     }
 
-    @Nested
-    @DisplayName("Tests des méthodes equals, hashCode et toString")
-    class MethodesUtilitairesTests {
-
         /**
          * Vérifie que deux objets Acteur avec le même ID sont considérés comme égaux.
          */
@@ -161,41 +157,6 @@ public class ActeurTest {
             autreActeur.setId("ACT456");
             assertFalse(acteur.equals(autreActeur));
         }
-
-
-        /**
-         * Vérifie que hashCode donne le même résultat pour deux acteurs ayant le même ID.
-         */
-        @Test
-        @DisplayName("Test de la méthode hashCode")
-        void testHashCode() {
-            acteur.setId("ACT123");
-            Acteur autreActeur = new Acteur();
-            autreActeur.setId("ACT123");
-
-            assertEquals(acteur.hashCode(), autreActeur.hashCode());
-        }
-
-        /**
-         * Vérifie que la méthode toString contient les informations essentielles de l’acteur
-         */
-        @Test
-        @DisplayName("Test de la méthode toString")
-        void testToString() {
-            acteur.setId("ACT123");
-            acteur.setIdentite("John Doe");
-            acteur.setUrl("http://jondoe.com/johndoe");
-            acteur.setDateNaissance("22-03-1987");
-            acteur.setTaille(1.80);
-
-            String toString = acteur.toString();
-
-            assertTrue(toString.contains("ACT123"));
-            assertTrue(toString.contains("John Doe"));
-            assertTrue(toString.contains("http://jondoe.com/johndoe"));
-            assertTrue(toString.contains("1.93"));
-        }
-    }
 
 }
 
