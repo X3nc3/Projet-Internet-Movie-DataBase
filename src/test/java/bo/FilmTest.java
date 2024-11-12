@@ -1,72 +1,114 @@
-package bo;
-import fr.diginamic.bo.*;
+package fr.diginamic.bo;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import org.mockito.*;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import static org.mockito.Mockito.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class FilmTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class FilmTest {
 
     private Film film;
 
+    @Mock
+    private Lieu lieuTournage;
+
+    @Mock
+    private Genre genre;
+
+    @Mock
+    private Realisateur realisateur;
+
+    @Mock
+    private Pays pays;
+
+    @Mock
+    private CastingPrincipale castingPrincipal;
+
     @BeforeEach
-    public void setUp() {
-        // Créer une instance de Film avant chaque test
-        film = new Film("Film 1", "http://example.com", "Un film génial", "Français", "2024");
-    }
+    void setUp() {
+        // Initialisation des mocks
+        MockitoAnnotations.openMocks(this);
 
-    @Test
-    public void testGettersAndSetters() {
-        // Test des méthodes getter et setter pour 'nom'
-        film.setNom("Film 2");
-        assertEquals("Film 2", film.getNom());
+        // Création d'un film pour les tests
+        film = new Film("FilmTest", "http://test.url", "Plot du film", "Français", "2024");
 
-        // Test des méthodes getter et setter pour 'url'
-        film.setUrl("http://example2.com");
-        assertEquals("http://example2.com", film.getUrl());
-
-        // Test des méthodes getter et setter pour 'plot'
-        film.setPlot("Un autre film génial");
-        assertEquals("Un autre film génial", film.getPlot());
-
-        // Test des méthodes getter et setter pour 'langue'
-        film.setLangue("Anglais");
-        assertEquals("Anglais", film.getLangue());
-
-        // Test des méthodes getter et setter pour 'anneeSortie'
-        film.setAnneeSortie("2025");
-        assertEquals("2025", film.getAnneeSortie());
-    }
-
-    @Test
-    public void testFilmRelationships() {
-        // Utilisation de Mockito pour tester les relations ManyToMany et ManyToOne
-        Lieu lieu = Mockito.mock(Lieu.class);
-        Set<Lieu> lieux = new HashSet<>();
-        lieux.add(lieu);
-
-        film.setLieuTournage(lieux);
-        assertEquals(1, film.getLieuTournage().size());
-
-        Genre genre = Mockito.mock(Genre.class);
+        // Initialisation des collections de genres, réalisateurs et casting
         Set<Genre> genres = new HashSet<>();
         genres.add(genre);
-
         film.setGenres(genres);
-        assertEquals(1, film.getGenres().size());
 
-        Realisateur realisateur = Mockito.mock(Realisateur.class);
         Set<Realisateur> realisateurs = new HashSet<>();
         realisateurs.add(realisateur);
-
         film.setRealisateurs(realisateurs);
-        assertEquals(1, film.getRealisateurs().size());
 
-        Pays pays = Mockito.mock(Pays.class);
+        Set<CastingPrincipale> castingPrincipals = new HashSet<>();
+        castingPrincipals.add(castingPrincipal);
+        film.setCastingPrincipal(castingPrincipals);
+
+        // Simuler l'attribution d'un lieu de tournage
+        film.setLieuTournage(lieuTournage);
+
+        // Simuler l'attribution d'un pays
         film.setPays(pays);
-        assertNotNull(film.getPays());
+    }
+
+    @Test
+    void testFilmCreation() {
+        assertNotNull(film);
+        assertEquals("FilmTest", film.getNom());
+        assertEquals("http://test.url", film.getUrl());
+        assertEquals("Plot du film", film.getPlot());
+        assertEquals("Français", film.getLangue());
+        assertEquals("2024", film.getAnneeSortie());
+    }
+
+    @Test
+    void testFilmGenres() {
+        Set<Genre> genres = film.getGenres();
+        assertNotNull(genres);
+        assertTrue(genres.contains(genre));
+    }
+
+    @Test
+    void testFilmRealisateurs() {
+        Set<Realisateur> realisateurs = film.getRealisateurs();
+        assertNotNull(realisateurs);
+        assertTrue(realisateurs.contains(realisateur));
+    }
+
+    @Test
+    void testFilmCastingPrincipal() {
+        Set<CastingPrincipale> castingPrincipales = film.getCastingPrincipal();
+        assertNotNull(castingPrincipales);
+        assertTrue(castingPrincipales.contains(castingPrincipal));
+    }
+
+    @Test
+    void testFilmLieuTournage() {
+        Lieu lieu = film.getLieuTournage();
+        assertNotNull(lieu);
+        assertEquals(lieuTournage, lieu);
+    }
+
+    @Test
+    void testFilmPays() {
+        Pays paysFilm = film.getPays();
+        assertNotNull(paysFilm);
+        assertEquals(pays, paysFilm);
+    }
+
+    @Test
+    void testToString() {
+        String filmToString = film.toString();
+        assertTrue(filmToString.contains("Film{id='"));
+        assertTrue(filmToString.contains("nom='FilmTest'"));
+        assertTrue(filmToString.contains("url='http://test.url'"));
     }
 }
