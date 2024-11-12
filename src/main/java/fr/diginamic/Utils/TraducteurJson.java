@@ -74,14 +74,32 @@ public class TraducteurJson {
 
 
 
-        // ** Extraction des lieux **
+    // ** Extraction des lieux **
         List<Lieu> ListLieuxJson = new ArrayList<>();
         for (Film_dto filmDto : filmsExtreJson) {
             Lieu_dto lieuDto = filmDto.lieuTournage();
             if (lieuDto != null) {
                 Lieu lieu = new Lieu();
                 lieu.setVille(lieuDto.ville());
-                boolean lieuExiste = ListLieuxJson.stream().anyMatch(l -> l.getVille().equals(lieu.getVille()));
+                lieu.setEtatDept(lieuDto.etatDept());
+                // Associer le pays si défini
+                if (lieuDto.pays() != null) {
+                    Pays pays = ListPaysJson.stream()
+                            .filter(p -> p.getNom().equals(lieuDto.pays()))
+                            .findFirst()
+                            .orElse(null);
+                    // Créer le pays s'il n'existe pas
+                    if (pays == null) {
+                        pays = new Pays();
+                        pays.setNom(lieuDto.pays());
+                        ListPaysJson.add(pays);
+                    }
+                    lieu.setPays(pays);
+                }
+                // Éviter les doublons pour les lieux
+                boolean lieuExiste = ListLieuxJson.stream()
+                        .anyMatch(l -> l.getVille().equals(lieu.getVille()) && l.getEtatDept().equals(lieu.getEtatDept()));
+
                 if (!lieuExiste) {
                     ListLieuxJson.add(lieu);
                 }
