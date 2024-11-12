@@ -20,4 +20,4 @@ public record Film_dto(
     Role_dto[] roles,
     String[] genres
 
-    ){}
+){}
