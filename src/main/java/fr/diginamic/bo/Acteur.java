@@ -57,6 +57,9 @@ public class Acteur {
         this.taille = taille;
     }
 
+    public Acteur(String id) {
+    }
+
     /**
      * Getter for getid
      *

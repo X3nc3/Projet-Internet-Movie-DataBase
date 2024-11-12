@@ -76,6 +76,9 @@ public class Film {
         this.anneeSortie = anneeSortie;
     }
 
+    public Film(String id) {
+    }
+
     /**
      * Getter for getid
      *
