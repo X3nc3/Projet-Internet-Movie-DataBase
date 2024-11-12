@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class TraducteurJson {
 
@@ -105,6 +106,9 @@ public class TraducteurJson {
             }
         }
 
+
+
+
         List<Realisateur> ListeRealisteurJson = new ArrayList<>();          // creation d'une liste pour stocker tous les réalisateurs renseignée dans le json
         for(Film_dto filmDto : filmsExtreJson){                             // boucle pour récupérer tous les réalisateurs dans FilmDTO du json
 
@@ -125,14 +129,7 @@ public class TraducteurJson {
                     ListeRealisteurJson.add(RealisateurExtreJson);          // ajout s'il n'est pas déjà présent dans la liste
                 }
             }
-
         }
-
-
-
-
-
-
 
 
 
@@ -158,19 +155,60 @@ public class TraducteurJson {
                         ActeurExtreJson.setDateNaissance(acteurDto.naissance().dateNaissance());
                     }
 
-                    Lieu lieuNaissanceActeur = new Lieu(acteurDto.naissance().lieuNaissance(), null);
+                    String[] partiesAdresse = acteurDto.naissance().lieuNaissance().split(", "); // on découle le lieu de naissance dans un tableau
 
-                    ActeurExtreJson.setLieuNaissance(lieuNaissanceActeur);
+                    // défini à un null pour éviter les erreurs
+                    String pays = null;
+                    String etatDept = null;
+                    String ville = null;
+
+                    if(partiesAdresse.length == 2){ // passage dans tous les cas de figure pour éviter les erreurs
+                        pays = partiesAdresse[1].toString();
+                        etatDept = partiesAdresse[0].toString();
+
+                    }else if(partiesAdresse.length == 3){
+                        pays = partiesAdresse[2].toString();
+                        etatDept = partiesAdresse[1].toString();
+                        ville = partiesAdresse[0].toString();
+
+                    }else if(partiesAdresse.length > 3){
+                        pays = partiesAdresse[partiesAdresse.length-1].toString();
+                        etatDept = partiesAdresse[partiesAdresse.length-2].toString();
+                        ville = String.join(", ", Arrays.copyOfRange(partiesAdresse, 0, partiesAdresse.length - 2));
+
+                    }
+
+                    Lieu lieuNaissanceActeur = new Lieu(ville,etatDept);        // créer le pays de l'acteur
+                    int indexLieu = ListLieuxJson.indexOf(lieuNaissanceActeur); // on obtient son index dans la liste total des lieux
+
+                    if(indexLieu == -1){                                        // si -1 alors, il n'existe pas
+                        ListLieuxJson.add(lieuNaissanceActeur);                 // on le rajoute dans la liste totale des lieux
+                        ActeurExtreJson.setLieuNaissance(lieuNaissanceActeur);  // on le définit à l'acteur
+                    }else{                                                      // s'il existe déjà
+                        Lieu lieuExistant = ListLieuxJson.get(indexLieu);       // on le récupère dans la liste des totaux
+                        ActeurExtreJson.setLieuNaissance(lieuExistant);         // on le définit à l'acteur
+                    }
+
+                    Pays paysActuel = new Pays(pays,null);                  // Créons un nouvel objet Pays avec le nom spécifié
+                    int indexPays = ListPaysJson.indexOf(paysActuel);           // on obtient son index dans la liste total des pays
+
+                    if (indexPays == -1) {                                      // si -1 alors, il n'existe pas
+                        ListPaysJson.add(paysActuel);                           // Si le pays n'existe pas dans la liste, on l'ajoute
+                    }else{                                                      // s'il existe déjà
+                        Pays paysExistant = ListPaysJson.get(indexPays);        // on le récupère dans la liste des totaux
+                        lieuNaissanceActeur.setPays(paysExistant);              // on le définit à l'acteur
+                    }
+
 
                     boolean acteurExiste = false;
-                    for (Acteur acteur : ListeActeurJson) {                 // vérifie si l'acteur n'est pas déjà rentré dans la liste
+                    for (Acteur acteur : ListeActeurJson) {                     // vérifie si l'acteur n'est pas déjà rentré dans la liste
                         if (acteur.getIdentite().equals(acteurDto.identite())) {
                             acteurExiste = true;
                             break;
                         }
                     }
                     if (!acteurExiste) {
-                        ListeActeurJson.add(ActeurExtreJson);               // l'ajout à la liste et l'ajout aussi a la liste des acteurs qui sont née au même endroit que lui
+                        ListeActeurJson.add(ActeurExtreJson);                   // l'ajout à la liste et l'ajout aussi a la liste des acteurs qui sont née au même endroit que lui
                         lieuNaissanceActeur.getActeurs().add(ActeurExtreJson);
                     }
                 }
@@ -189,15 +227,48 @@ public class TraducteurJson {
                     }
                     ActeurExtreJson.setIdentite(roleDto.acteur().identite());
 
-                    Lieu lieuNaissanceActeur = new Lieu();
-                    // Vérifie d'abord que naissance() n'est pas null avant de récupérer dateNaissance() et lieuNaissance()
-                    if (roleDto.acteur().naissance() != null) {
-                        ActeurExtreJson.setDateNaissance(roleDto.acteur().naissance().dateNaissance());
-                        lieuNaissanceActeur = new Lieu(roleDto.acteur().naissance().lieuNaissance(), null);
-                        ActeurExtreJson.setLieuNaissance(lieuNaissanceActeur);
-                    } else {
-                        ActeurExtreJson.setDateNaissance(null); // Définit dateNaissance à null si l'information n'est pas disponible
-                        ActeurExtreJson.setLieuNaissance(null); // Définit lieuNaissance à null si l'information n'est pas disponible
+                    String[] partiesAdresse = roleDto.acteur().naissance().lieuNaissance().split(", "); // on découle le lieu de naissance dans un tableau
+
+                    // défini à un null pour éviter les erreurs
+                    String pays = null;
+                    String etatDept = null;
+                    String ville = null;
+
+                    if(partiesAdresse.length == 2){ // passage dans tous les cas de figure pour éviter les erreurs
+                        pays = partiesAdresse[1].toString();
+                        etatDept = partiesAdresse[0].toString();
+
+                    }else if(partiesAdresse.length == 3){
+                        pays = partiesAdresse[2].toString();
+                        etatDept = partiesAdresse[1].toString();
+                        ville = partiesAdresse[0].toString();
+
+                    }else if(partiesAdresse.length > 3){
+                        pays = partiesAdresse[partiesAdresse.length-1].toString();
+                        etatDept = partiesAdresse[partiesAdresse.length-2].toString();
+                        ville = String.join(", ", Arrays.copyOfRange(partiesAdresse, 0, partiesAdresse.length - 2));
+
+                    }
+
+                    Lieu lieuNaissanceActeur = new Lieu(ville,etatDept);        // créer le pays de l'acteur
+                    int indexLieu = ListLieuxJson.indexOf(lieuNaissanceActeur); // on obtient son index dans la liste total des lieux
+
+                    if(indexLieu == -1){                                        // si -1 alors, il n'existe pas
+                        ListLieuxJson.add(lieuNaissanceActeur);                 // on le rajoute dans la liste totale des lieux
+                        ActeurExtreJson.setLieuNaissance(lieuNaissanceActeur);  // on le définit à l'acteur
+                    }else{                                                      // s'il existe déjà
+                        Lieu lieuExistant = ListLieuxJson.get(indexLieu);       // on le récupère dans la liste des totaux
+                        ActeurExtreJson.setLieuNaissance(lieuExistant);         // on le définit à l'acteur
+                    }
+
+                    Pays paysActuel = new Pays(pays,null);                  // Créons un nouvel objet Pays avec le nom spécifié
+                    int indexPays = ListPaysJson.indexOf(paysActuel);           // on obtient son index dans la liste total des pays
+
+                    if (indexPays == -1) {                                      // si -1 alors, il n'existe pas
+                        ListPaysJson.add(paysActuel);                           // Si le pays n'existe pas dans la liste, on l'ajoute
+                    }else{                                                      // s'il existe déjà
+                        Pays paysExistant = ListPaysJson.get(indexPays);        // on le récupère dans la liste des totaux
+                        lieuNaissanceActeur.setPays(paysExistant);              // on le définit à l'acteur
                     }
 
 

@@ -18,11 +18,11 @@ public class Roles {
 
     @ManyToOne
     @JoinColumn(name = "id_acteur")
-    private Acteur acteurId;
+    private Acteur acteur;
 
     @ManyToOne
     @JoinColumn(name = "id_film")
-    private Film filmId;
+    private Film film;
 
     public Roles() {
     }
@@ -98,8 +98,8 @@ public class Roles {
      * @return acteurId
      */
 
-    public Acteur getActeurId() {
-        return acteurId;
+    public Acteur getActeur() {
+        return acteur;
     }
 
     /**
@@ -108,8 +108,8 @@ public class Roles {
      * @return acteurId
      */
 
-    public void setActeurId(Acteur acteurId) {
-        this.acteurId = acteurId;
+    public void setActeur(Acteur acteurId) {
+        this.acteur = acteurId;
     }
 
     /**
@@ -118,8 +118,8 @@ public class Roles {
      * @return filmId
      */
 
-    public Film getFilmId() {
-        return filmId;
+    public Film getFilm() {
+        return film;
     }
 
     /**
@@ -128,8 +128,8 @@ public class Roles {
      * @return filmId
      */
 
-    public void setFilmId(Film filmId) {
-        this.filmId = filmId;
+    public void setFilm(Film filmId) {
+        this.film = filmId;
     }
 
     @Override

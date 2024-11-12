@@ -27,7 +27,7 @@ public class Lieu {
     @OneToMany(mappedBy = "lieuNaissance", cascade = CascadeType.PERSIST)
     private Set<Acteur> Acteurs;
 
-    @ManyToMany(mappedBy = "lieuTournage")
+    @OneToMany(mappedBy = "lieuTournage")
     private Set<Film> films;
 
 
