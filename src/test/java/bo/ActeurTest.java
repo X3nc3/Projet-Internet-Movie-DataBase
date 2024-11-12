@@ -41,9 +41,7 @@ public class ActeurTest {
         @Test
         @DisplayName("Test du constructeur par défaut sans paramétres")
         void testConstructeurParDefaut() {
-            assertNotNull(acteur.getFilmsCasting(), "filmsCasting doit être initialisé");
             assertNotNull(acteur.getRoles(), "roles doit être initialisé");
-            assertTrue(acteur.getFilmsCasting().isEmpty(), "filmsCasting doit être vide");
             assertTrue(acteur.getRoles().isEmpty(), "roles doit être vide");
         }
 
@@ -61,7 +59,6 @@ public class ActeurTest {
             assertEquals("http://bratpitt.com/bratpitt", acteur.getUrl());
             assertEquals("1990-1-1", acteur.getDateNaissance());
             assertEquals(1.85, acteur.getTaille(), 0.001);
-            assertNotNull(acteur.getFilmsCasting());
             assertNotNull(acteur.getRoles());
         }
     }
@@ -104,21 +101,6 @@ public class ActeurTest {
         void testRelationLieu() {
             acteur.setLieuNaissance(lieu);
             assertEquals(lieu, acteur.getLieuNaissance());
-        }
-
-        /**
-         * Test qui vérifie la gestion des films associés à un acteur.
-         *aprés avoir ajouter un film à un acteur, puis on verifie que ce film est bien ajouté à la collection de films.
-         */
-        @Test
-        @DisplayName("Test de la gestion des films")
-        void testGestionFilms() {
-            Set<Film> films = new HashSet<>();
-            films.add(film);
-            acteur.setFilmsCasting(films);
-
-            assertTrue(acteur.getFilmsCasting().contains(film));
-            assertEquals(1, acteur.getFilmsCasting().size());
         }
 
         /**
