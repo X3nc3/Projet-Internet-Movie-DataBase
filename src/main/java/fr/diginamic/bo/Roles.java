@@ -13,9 +13,6 @@ public class Roles {
     @Column(name = "character_name")
     private String characterName;
 
-    @Column(name = "role")
-    private String role;
-
     @ManyToOne
     @JoinColumn(name = "id_acteur")
     private Acteur acteur;
@@ -27,8 +24,7 @@ public class Roles {
     public Roles() {
     }
 
-    public Roles(String role, String characterName) {
-        this.role = role;
+    public Roles(String characterName) {
         this.characterName = characterName;
     }
 
@@ -78,26 +74,6 @@ public class Roles {
      * @return role
      */
 
-    public String getRole() {
-        return role;
-    }
-
-    /**
-     * Setter for getrole
-     *
-     * @return role
-     */
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    /**
-     * Getter for getacteurId
-     *
-     * @return acteurId
-     */
-
     public Acteur getActeur() {
         return acteur;
     }
@@ -135,7 +111,6 @@ public class Roles {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Roles{");
-        sb.append("role='").append(role).append('\'');
         sb.append(", characterName='").append(characterName).append('\'');
         sb.append(", id=").append(id);
         sb.append('}');
