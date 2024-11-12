@@ -106,21 +106,6 @@ public class TraducteurJson {
             }
         }
 
-        // ** Extraction des rôles **
-        List<Roles> ListRolesJson = new ArrayList<>();
-        for (Film_dto filmDto : filmsExtreJson) {
-            Role_dto[] rolesFilm = filmDto.roles();
-            if (rolesFilm != null) {
-                for (Role_dto roleDto : rolesFilm) {
-                    Roles role = new Roles();
-                    role.setCharacterName(roleDto.characterName());
-                    role.setFilmId(new Film(filmDto.id()));
-                    role.setActeurId(new Acteur(roleDto.acteur().id()));
-
-                    ListRolesJson.add(role);
-                }
-            }
-        }
 
 // Afficher les résultats pour vérification
         System.out.println("Pays : " + Arrays.toString(ListPaysJson.toArray()));
@@ -128,7 +113,7 @@ public class TraducteurJson {
 //        System.out.println("Acteurs : " + Arrays.toString(ListActeursJson.toArray()));
         System.out.println("Lieux : " + Arrays.toString(ListLieuxJson.toArray()));
 //            System.out.println("Réalisateurs : " + Arrays.toString(ListRealisateursJson.toArray()));
-        System.out.println("Rôles : " + Arrays.toString(ListRolesJson.toArray()));
+//        System.out.println("Rôles : " + Arrays.toString(ListRolesJson.toArray()));
 //        System.out.println("Films : " + Arrays.toString(ListFilmsJson.toArray()));
 
 //        Film[] ListFilms = null;
