@@ -59,6 +59,9 @@ public class Main {
         }
     }
 
+    /**
+     * Affichage du menu
+     */
     public static void menu() {
         System.out.println("Menu :\n1. Affichage de la filmographie d'un acteur donné.\n2. Affichage du casting d'un film donné.\n3. Affichage des films sortis entre 2 années données.\n4. Affichage des films communs à 2 acteur/actrices donnés.\n5. Affichage des acteurs communs à 2 films donnés.\n6. Affichage des films sortis entre 2 années données et qui ont un acteur/actrice donné au casting.\n7. Fin de l'application");
     }
