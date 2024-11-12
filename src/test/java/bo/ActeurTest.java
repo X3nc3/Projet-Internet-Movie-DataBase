@@ -24,7 +24,7 @@ public class ActeurTest {
     @BeforeEach //Initialise les données de test avant chaque méthode de test.
     void initialiser() {
         // Initialisation des objets de test
-        acteur = new Acteur();
+        acteur = new Acteur("Brad Pitt", "http://bratpitt.com/bratpitt", "1990-1-1", 1.85);
         lieu = new Lieu("Nantes", "Loire Atlantique");
         film = new Film();
         role = new Roles();
@@ -62,7 +62,6 @@ public class ActeurTest {
             assertNotNull(acteur.getRoles());
         }
     }
-
 
     @Nested
     @DisplayName("Tests des getters et setters")
