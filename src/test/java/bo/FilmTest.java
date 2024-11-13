@@ -72,7 +72,7 @@ class FilmTest {
     @Test
     void testGettersAndSetters() {
         assertEquals("Test Film", film.getNom());
-        assertEquals("http://Film.com", film.getUrl());
+        assertEquals("http://film.com/film", film.getUrl());
         assertEquals("A test plot", film.getPlot());
         assertEquals("Français", film.getLangue());
         assertEquals("2022", film.getAnneeSortie());
