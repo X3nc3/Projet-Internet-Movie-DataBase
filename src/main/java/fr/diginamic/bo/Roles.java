@@ -108,12 +108,13 @@ public class Roles {
         this.film = filmId;
     }
 
+
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Roles{");
-        sb.append(", characterName='").append(characterName).append('\'');
-        sb.append(", id=").append(id);
-        sb.append('}');
-        return sb.toString();
+        return "Roles{" +
+                ", characterName='" + (characterName != null ? characterName : "N/A") + '\'' +
+                ", acteur='" + (acteur != null ? acteur.getIdentite() : "N/A") + '\'' +
+                ", film='" + (film != null ? film.getNom() : "N/A") + '\'' +
+                '}';
     }
 }

@@ -286,16 +286,112 @@ public class TraducteurJson {
                             lieuNaissanceActeur.getActeurs().add(ActeurExtreJson);
                         }
                     }
-
-
                 }
             }
         }
 
 
+        // Extraction des rôles
+        List<Roles> ListRolesJson = new ArrayList<>(); // Liste pour stocker les rôles
+        for (Film_dto filmDto : filmsExtreJson) {
+            Role_dto[] rolesFilm = filmDto.roles(); // Récupère les rôles associés à un film
+            if (rolesFilm != null) {
+                for (Role_dto roleDto : rolesFilm) {
+                    // Récupération ou création de l'acteur pour ce rôle
+                    Acteur acteurAssocie = null;
+                    for (Acteur acteur : ListeActeurJson) {
+                        if (acteur.getId().equals(roleDto.acteur().id())) {
+                            acteurAssocie = acteur;
+                            break;
+                        }
+                    }
+
+                    // Si l'acteur n'existe pas déjà, il est créé
+                    if (acteurAssocie == null) {
+                        acteurAssocie = new Acteur();
+                        acteurAssocie.setId(roleDto.acteur().id());
+                        acteurAssocie.setIdentite(roleDto.acteur().identite());
+                        acteurAssocie.setUrl(roleDto.acteur().url());
+                        if (roleDto.acteur().height() != null) {
+                            acteurAssocie.setTaille(Double.parseDouble(roleDto.acteur().height()));
+                        }
+                        acteurAssocie.setDateNaissance(roleDto.acteur().naissance() != null
+                                ? roleDto.acteur().naissance().dateNaissance()
+                                : null);
+
+                        // Gestion du lieu de naissance
+                        if (roleDto.acteur().naissance() != null && roleDto.acteur().naissance().lieuNaissance() != null) {
+                            String adresse = roleDto.acteur().naissance().lieuNaissance();
+                            String[] partiesAdresse = adresse.split(", ");
+
+                            String pays = null, etatDept = null, ville = null;
+
+                            if (partiesAdresse.length == 2) {
+                                pays = partiesAdresse[1];
+                                etatDept = partiesAdresse[0];
+                            } else if (partiesAdresse.length == 3) {
+                                pays = partiesAdresse[2];
+                                etatDept = partiesAdresse[1];
+                                ville = partiesAdresse[0];
+                            } else if (partiesAdresse.length > 3) {
+                                pays = partiesAdresse[partiesAdresse.length - 1];
+                                etatDept = partiesAdresse[partiesAdresse.length - 2];
+                                ville = String.join(", ", Arrays.copyOfRange(partiesAdresse, 0, partiesAdresse.length - 2));
+                            }
+
+                            Lieu lieuNaissance = new Lieu(ville, etatDept);
+                            int indexLieu = ListLieuxJson.indexOf(lieuNaissance);
+                            if (indexLieu == -1) {
+                                ListLieuxJson.add(lieuNaissance);
+                                acteurAssocie.setLieuNaissance(lieuNaissance);
+                            } else {
+                                acteurAssocie.setLieuNaissance(ListLieuxJson.get(indexLieu));
+                            }
+
+                            // Gestion du pays
+                            Pays paysAssocie = new Pays(pays, null);
+                            int indexPays = ListPaysJson.indexOf(paysAssocie);
+                            if (indexPays == -1) {
+                                ListPaysJson.add(paysAssocie);
+                                lieuNaissance.setPays(paysAssocie);
+                            } else {
+                                lieuNaissance.setPays(ListPaysJson.get(indexPays));
+                            }
+                        }
+
+                        ListeActeurJson.add(acteurAssocie);
+                    }
+
+                    // Création d'un rôle
+                    Roles role = new Roles();
+                    role.setCharacterName(roleDto.characterName());
+
+                    // Gestion du film
+                    Film filmAssocie = new Film();
+                    filmAssocie.setId(filmDto.id());
+                    filmAssocie.setNom(filmDto.nom());
+
+                    // Vérification des doublons avant ajout
+                    boolean roleExiste = ListRolesJson.stream()
+                            .anyMatch(r -> r.getCharacterName() != null
+                                    && r.getCharacterName().equals(role.getCharacterName())
+                                    && r.getActeur() != null
+                                    && r.getActeur().getId().equals(role.getActeur().getId())
+                                    && r.getFilm() != null
+                                    && r.getFilm().getId().equals(role.getFilm().getId()));
+                    if (!roleExiste) {
+                        ListRolesJson.add(role);
+                    }
+                }
+            }
+        }
 
 
-
+        // Affichage des rôles pour vérification
+        System.out.println("Rôles extraits : " + ListRolesJson.size());
+        for (Roles role : ListRolesJson) {
+            System.out.println(role);
+        }
 
 
 
@@ -310,6 +406,6 @@ public class TraducteurJson {
 //            Film filmTemp = new Film();
 //            filmTemp.setId(films.get(i).id());
 //            filmTemp.set
-//        }
     }
 }
+
