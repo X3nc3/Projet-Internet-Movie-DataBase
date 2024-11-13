@@ -13,6 +13,7 @@ public record Film_dto(
     String url,
     String plot,
     String langue,
+
     Lieu_dto lieuTournage,
     Realisateur_dto[] realisateurs,
     Acteur_dto[] castingPrincipal,

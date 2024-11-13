@@ -13,22 +13,18 @@ public class Roles {
     @Column(name = "character_name")
     private String characterName;
 
-    @Column(name = "role")
-    private String role;
-
     @ManyToOne
     @JoinColumn(name = "id_acteur")
-    private Acteur acteurId;
+    private Acteur acteur;
 
     @ManyToOne
     @JoinColumn(name = "id_film")
-    private Film filmId;
+    private Film film;
 
     public Roles() {
     }
 
-    public Roles(String role, String characterName) {
-        this.role = role;
+    public Roles(String characterName) {
         this.characterName = characterName;
     }
 
@@ -78,28 +74,8 @@ public class Roles {
      * @return role
      */
 
-    public String getRole() {
-        return role;
-    }
-
-    /**
-     * Setter for getrole
-     *
-     * @return role
-     */
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    /**
-     * Getter for getacteurId
-     *
-     * @return acteurId
-     */
-
-    public Acteur getActeurId() {
-        return acteurId;
+    public Acteur getActeur() {
+        return acteur;
     }
 
     /**
@@ -108,8 +84,8 @@ public class Roles {
      * @return acteurId
      */
 
-    public void setActeurId(Acteur acteurId) {
-        this.acteurId = acteurId;
+    public void setActeur(Acteur acteurId) {
+        this.acteur = acteurId;
     }
 
     /**
@@ -118,8 +94,8 @@ public class Roles {
      * @return filmId
      */
 
-    public Film getFilmId() {
-        return filmId;
+    public Film getFilm() {
+        return film;
     }
 
     /**
@@ -128,17 +104,17 @@ public class Roles {
      * @return filmId
      */
 
-    public void setFilmId(Film filmId) {
-        this.filmId = filmId;
+    public void setFilm(Film filmId) {
+        this.film = filmId;
     }
+
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Roles{");
-        sb.append("role='").append(role).append('\'');
-        sb.append(", characterName='").append(characterName).append('\'');
-        sb.append(", id=").append(id);
-        sb.append('}');
-        return sb.toString();
+        return "Roles{" +
+                ", characterName='" + (characterName != null ? characterName : "N/A") + '\'' +
+                ", acteur='" + (acteur != null ? acteur.getIdentite() : "N/A") + '\'' +
+                ", film='" + (film != null ? film.getNom() : "N/A") + '\'' +
+                '}';
     }
 }

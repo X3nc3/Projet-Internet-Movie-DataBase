@@ -27,12 +27,8 @@ public class Film {
     @Column(name = "annee_sortie")
     private String anneeSortie;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "FILM_TOURNAGE",
-            joinColumns = @JoinColumn(name = "lieu_tournage_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id")
-    )
-    private Set<Lieu> lieuTournage;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Lieu lieuTournage;
 
     @ManyToMany
     @JoinTable(name = "FILM_GENRE",
@@ -50,15 +46,14 @@ public class Film {
     @JoinColumn(name = "pays_id")
     private Pays pays;
 
-    @ManyToMany(mappedBy = "filmsCasting")
-    private Set<Acteur> castingPrincipal; // liste des acteurs qui on fait le casting pour le film
+    @OneToMany(mappedBy = "film")
+    private Set<CastingPrincipale> castingPrincipal; // liste des acteurs qui on fait le casting pour le film
 
 
-    @OneToMany(mappedBy = "filmId", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "film", cascade = CascadeType.PERSIST)
     private Set<Roles> Roles; // liste des acteurs qui on était pris pour le film
 
     {
-        lieuTournage = new HashSet<>();
         realisateurs = new HashSet<>();
         genres = new HashSet<>();
         castingPrincipal = new HashSet<>();
@@ -74,6 +69,9 @@ public class Film {
         this.plot = plot;
         this.langue = langue;
         this.anneeSortie = anneeSortie;
+    }
+
+    public Film(String id) {
     }
 
     /**
@@ -202,7 +200,7 @@ public class Film {
      * @return lieuTournage
      */
 
-    public Set<Lieu> getLieuTournage() {
+    public Lieu getLieuTournage() {
         return lieuTournage;
     }
 
@@ -212,7 +210,7 @@ public class Film {
      * @return lieuTournage
      */
 
-    public void setLieuTournage(Set<Lieu> lieuTournage) {
+    public void setLieuTournage(Lieu lieuTournage) {
         this.lieuTournage = lieuTournage;
     }
 
@@ -277,32 +275,32 @@ public class Film {
     }
 
     /**
+     * Getter for getcastingPrincipal
+     *
+     * @return castingPrincipal
+     */
+
+    public Set<CastingPrincipale> getCastingPrincipal() {
+        return castingPrincipal;
+    }
+
+    /**
+     * Setter for getcastingPrincipal
+     *
+     * @return castingPrincipal
+     */
+
+    public void setCastingPrincipal(Set<CastingPrincipale> castingPrincipal) {
+        this.castingPrincipal = castingPrincipal;
+    }
+
+    /**
      * Getter for getCastingPrincipales
      *
      * @return CastingPrincipales
      */
 
-    public Set<Acteur> getCastingPrincipal() {
-        return castingPrincipal;
-    }
-
-    /**
-     * Setter for getCastingPrincipales
-     *
-     * @return CastingPrincipales
-     */
-
-    public void setCastingPrincipal(Set<Acteur> castingPrincipal) {
-        this.castingPrincipal = castingPrincipal;
-    }
-
-    /**
-     * Getter for getRoles
-     *
-     * @return Roles
-     */
-
-    public Set<fr.diginamic.bo.Roles> getRoles() {
+    public Set<Roles> getRoles() {
         return Roles;
     }
 
@@ -312,7 +310,7 @@ public class Film {
      * @return Roles
      */
 
-    public void setRoles(Set<fr.diginamic.bo.Roles> roles) {
+    public void setRoles(Set<Roles> roles) {
         Roles = roles;
     }
 
