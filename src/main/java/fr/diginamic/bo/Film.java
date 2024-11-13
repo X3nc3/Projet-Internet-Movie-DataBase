@@ -1,4 +1,4 @@
-package fr.diginamic.ob;
+package fr.diginamic.bo;
 
 import jakarta.persistence.*;
 
@@ -51,7 +51,7 @@ public class Film {
     private Pays pays;
 
     @ManyToMany(mappedBy = "filmsCasting")
-    private Set<Acteur> CastingPrincipales; // liste des acteurs qui on fait le casting pour le film
+    private Set<Acteur> castingPrincipal; // liste des acteurs qui on fait le casting pour le film
 
 
     @OneToMany(mappedBy = "filmId", cascade = CascadeType.PERSIST)
@@ -61,7 +61,7 @@ public class Film {
         lieuTournage = new HashSet<>();
         realisateurs = new HashSet<>();
         genres = new HashSet<>();
-        CastingPrincipales = new HashSet<>();
+        castingPrincipal = new HashSet<>();
         Roles = new HashSet<>();
     }
 
@@ -282,8 +282,8 @@ public class Film {
      * @return CastingPrincipales
      */
 
-    public Set<Acteur> getCastingPrincipales() {
-        return CastingPrincipales;
+    public Set<Acteur> getCastingPrincipal() {
+        return castingPrincipal;
     }
 
     /**
@@ -292,8 +292,8 @@ public class Film {
      * @return CastingPrincipales
      */
 
-    public void setCastingPrincipales(Set<Acteur> castingPrincipales) {
-        CastingPrincipales = castingPrincipales;
+    public void setCastingPrincipal(Set<Acteur> castingPrincipal) {
+        this.castingPrincipal = castingPrincipal;
     }
 
     /**
@@ -302,7 +302,7 @@ public class Film {
      * @return Roles
      */
 
-    public Set<fr.diginamic.ob.Roles> getRoles() {
+    public Set<fr.diginamic.bo.Roles> getRoles() {
         return Roles;
     }
 
@@ -312,7 +312,7 @@ public class Film {
      * @return Roles
      */
 
-    public void setRoles(Set<fr.diginamic.ob.Roles> roles) {
+    public void setRoles(Set<fr.diginamic.bo.Roles> roles) {
         Roles = roles;
     }
 

@@ -1,4 +1,4 @@
-package fr.diginamic.ob;
+package fr.diginamic.bo;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
