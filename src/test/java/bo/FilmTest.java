@@ -10,7 +10,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Vérifie les fonctionnalités de la class
+ * Vérifie les fonctionnalités de la classe
  */
 class FilmTest {
 
