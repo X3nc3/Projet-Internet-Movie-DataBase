@@ -2,6 +2,7 @@ package fr.diginamic.bo;
 
 import jakarta.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -111,6 +112,19 @@ public class Realisateur {
 
     public void setFilms(Set<Film> films) {
         this.films = films;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Realisateur that = (Realisateur) o;
+        return Objects.equals(identite, that.identite) && Objects.equals(url, that.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(identite, url);
     }
 
     @Override

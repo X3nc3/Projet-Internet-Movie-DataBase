@@ -2,6 +2,7 @@ package fr.diginamic.bo;
 
 import jakarta.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -90,6 +91,19 @@ public class Genre {
 
     public void setFilms(Set<Film> films) {
         this.films = films;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Genre genre = (Genre) o;
+        return Objects.equals(id, genre.id) && Objects.equals(nom, genre.nom);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nom, films);
     }
 
     @Override
