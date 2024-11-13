@@ -50,7 +50,7 @@ Ce projet est un système de gestion de films basé sur Java, développé avec l
    ```
 
 2. **Configurer la base de données MariaDB** :
-   - Créez une base de données nommée `FilmBDD`.
+   - Créez une base de données nommée `projet-films`.
    - Assurez-vous que votre serveur MariaDB fonctionne sur `localhost:3307` avec l'utilisateur `root` et le mot de passe `` (modifiable dans le fichier `persistence.xml`).
 
 3. **Compiler et exécuter le projet** :
