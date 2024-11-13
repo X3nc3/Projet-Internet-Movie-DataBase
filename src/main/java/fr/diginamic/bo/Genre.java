@@ -8,15 +8,16 @@ import java.util.Set;
 @Entity
 @Table(name = "GENRE")
 public class Genre {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Integer id;
 
     @Column(name = "nom")
     private String nom;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "film_genre",
+    @JoinTable(name = "FILM_GENRE",
             joinColumns = @JoinColumn(name = "id_genre", referencedColumnName="id"),
             inverseJoinColumns = @JoinColumn(name = "id_film", referencedColumnName="id"))
     private Set<Film> films;
@@ -39,7 +40,7 @@ public class Genre {
      * @return id
      */
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -49,7 +50,7 @@ public class Genre {
      * @return id
      */
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
